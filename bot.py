@@ -2,7 +2,7 @@ import logging
 from telegram.ext import (Updater, CommandHandler,
     MessageHandler, Filters)
 
-from handlers import (greet_user, guess_number_game, get_a_cat_pic, 
+from handlers import (check_user_photo_for_cat, greet_user, guess_number_game, get_a_cat_pic, 
                       user_coordinates, repeat_after_me)
 
 from settings import BOT_API_KEY
@@ -17,6 +17,7 @@ def main():
     dp.add_handler(CommandHandler('guess', guess_number_game))
     dp.add_handler(CommandHandler('cat', get_a_cat_pic))
     dp.add_handler(MessageHandler(Filters.regex('^(Gimme a cat!)$'), get_a_cat_pic))
+    dp.add_handler(MessageHandler(Filters.photo, check_user_photo_for_cat))
     dp.add_handler(MessageHandler(Filters.location, user_coordinates))
     dp.add_handler(MessageHandler(Filters.text, repeat_after_me))
 

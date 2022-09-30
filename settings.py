@@ -1,2 +1,3 @@
 BOT_API_KEY = '5118779893:AAHS-GCNuFQyWcU8V9soqysI0GIjqrgFndY'
 USER_EMOJI = [':innocent:', ':smiling_imp:']
+CLARIFAI_API_KEY = '19a1b67ef3f14e499452d516aed195ce'
