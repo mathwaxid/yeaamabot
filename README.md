@@ -9,7 +9,7 @@ Yeaamabot is my testing bot for learning. This is based on python-telegram-bot l
 4. Create file 'settings.py'
 5. Write this in settings file:
 '''
-BOT_API_KEY = "API-key witch you get from BotFather"
+BOT_API_KEY = "API-key witch you get from BotFather"/n
 USER_EMOJI = ["each emoji is element of this list"]
 '''
 Full list of emoji-aliases: https://www.webfx.com/tools/emoji-cheat-sheet/
