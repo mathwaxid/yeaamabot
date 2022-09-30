@@ -6,13 +6,13 @@ Yeaamabot is my testing bot for learning. This is based on python-telegram-bot l
 
 1. Copy repository from github. 
  
-`git clone https://github.com/mathwaxid/yeaamabot`
+```git clone https://github.com/mathwaxid/yeaamabot```
 
 2. Create virtual environment. 
 
 3. Install all requirements. 
 
-`pip install -r requirements.txt`
+```pip install -r requirements.txt```
 
 4. Create file `settings.py`.
 
