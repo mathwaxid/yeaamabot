@@ -13,6 +13,7 @@ from settings import USER_EMOJI, CLARIFAI_API_KEY
 def main_keyboard():
     return ReplyKeyboardMarkup([
         ['Gimme a cat!', KeyboardButton('Take my location.', request_location=True)],
+        ['Anketa'],
         ])
 
 
