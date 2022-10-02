@@ -1,4 +1,4 @@
-from telegram import ParseMode, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import KeyboardButton, ParseMode, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import ConversationHandler
 from utils import main_keyboard
 
@@ -29,20 +29,15 @@ def anketa_name(update, context):
 
 def anketa_rating(update, context):
     context.user_data['anketa']['rating'] = int(update.message.text)
-    update.message.reply_text('Please, write a comment about our bot or press /skip.')
+    keyboard = [['/skip']]
+    update.message.reply_text('Please, write a comment about our bot or press /skip.',
+        reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True))
     return 'comment'
 
 
 def anketa_comment(update, context):
     context.user_data['anketa']['comment'] = update.message.text.title()
-    user_text = f"""
-<b>Full name:</b>
-{context.user_data['anketa']['name'].capitalize()}
-<b>You rated the bot as:</b>
-{context.user_data['anketa']['rating']}
-<b>Your comment:</b>
-{context.user_data['anketa']['comment'].capitalize()} 
-    """
+    user_text = format_anketa(context.user_data['anketa'])
     update.message.reply_text(
         user_text, 
         parse_mode=ParseMode.HTML,
@@ -50,14 +45,28 @@ def anketa_comment(update, context):
     return ConversationHandler.END
 
 def anketa_skip(update, context):
-    user_text = f"""
-<b>Full name:</b>
-{context.user_data['anketa']['name'].title()}
-<b>You rated the bot as:</b>
-{context.user_data['anketa']['rating']} 
-    """
+    user_text = format_anketa(context.user_data['anketa'])
     update.message.reply_text(
         user_text, 
         parse_mode=ParseMode.HTML,
         reply_markup=main_keyboard())
     return ConversationHandler.END
+
+
+def format_anketa(anketa):
+    user_text = f"""
+<b>Full name:</b>
+{anketa['name'].title()}
+<b>You rated the bot as:</b>
+{anketa['rating']}
+    """
+    if 'comment' in anketa:
+        user_text +=f"""
+<b>Your comment:</b> 
+{anketa['comment'].capitalize()}
+        """
+    return user_text
+
+
+def anketa_unknown(update, context):
+    update.message.reply_text('Incorrect answer.')

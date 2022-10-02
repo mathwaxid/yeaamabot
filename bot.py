@@ -2,7 +2,8 @@ import logging
 from telegram.ext import (Updater, CommandHandler, ConversationHandler,
     MessageHandler, Filters)
 
-from anketa import anketa_start, anketa_name, anketa_rating, anketa_skip, anketa_comment
+from anketa import (anketa_start, anketa_name, anketa_rating, 
+                    anketa_skip, anketa_comment, anketa_unknown)
 from handlers import (check_user_photo_for_cat, greet_user, guess_number_game, get_a_cat_pic, 
                       user_coordinates, repeat_after_me)
 
@@ -25,7 +26,12 @@ def main():
                 MessageHandler(Filters.text, anketa_comment)
             ],
             },
-        fallbacks=[],
+        fallbacks=[
+            MessageHandler(
+                Filters.text | Filters.photo | Filters.video | Filters.animation | Filters.audio | Filters.attachment,
+                anketa_unknown
+                )
+        ],
                     )
     
     dp.add_handler(anketa)
